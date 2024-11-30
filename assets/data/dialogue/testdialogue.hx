@@ -12,7 +12,7 @@ showDialogue("Tails", "Hey Soni-");
 
 setCharacterExpression("sonic", "determined", false);
 setCharacterPosition("sonic", "left");
-showDialogue("Sonic", "SHUT THE HECK UP TAILS");
+showDialogue("Sonic", "SHUT THE HECK UP TAILS!");
 
 setCharacterExpression("tails", "screwed", true);
 setCharacterPosition("tails", "right");

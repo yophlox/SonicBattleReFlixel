@@ -47,7 +47,7 @@ class PlayState extends FlxState
         sonicSpr.visible = false;
 		add(sonicSpr);
 
-        tailsSpr = new FlxSprite(300, 435).loadGraphic(Paths.image('dialogue/chars/tails/neutral'));
+        tailsSpr = new FlxSprite(300, 457).loadGraphic(Paths.image('dialogue/chars/tails/neutral'));
 		tailsSpr.scale.set(2, 2);
 		//sonicSpr.screenCenter(Y);
         tailsSpr.visible = false;
@@ -130,12 +130,18 @@ class PlayState extends FlxState
 
     private function updateIndicatorPosition(isRight:Bool):Void
     {
-        var targetX = isRight ? FlxG.width - talkIndicator.width - 465 : 165;
+        var targetX = isRight ? FlxG.width - talkIndicator.width - 555 : 195;
         var targetY = dialoguebox.y + -25;
         if (isRight == true)
+        {
+            dialoguebox.flipX = false;
             talkIndicator.flipX = false;
+        }    
         else
+        {    
+            dialoguebox.flipX = false;
             talkIndicator.flipX = true;
+        }    
         FlxTween.tween(talkIndicator, {x: targetX, y: targetY}, 0.3, {ease: FlxEase.quartOut});
     }
 
@@ -149,7 +155,15 @@ class PlayState extends FlxState
             }
 
 		if (talking && FlxG.keys.justPressed.Z)
-			dialogueManager.skipText();
+        {
+            if (dialogueManager.isDialogueComplete())
+            {
+                talking = false;
+                hideDialogue();
+            }
+            else
+                dialogueManager.skipText();
+        }
 
 		if (FlxG.keys.justPressed.C)
         {

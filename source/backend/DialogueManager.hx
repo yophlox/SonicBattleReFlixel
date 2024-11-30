@@ -80,12 +80,11 @@ class DialogueManager
 
     public function start():Void
     {
-        dialogues = parseDialogueFile(dialogueFile + ".hx");
+        dialogues = [];
         currentLine = 0;
+        dialogues = parseDialogueFile(dialogueFile + ".hx");
         if (dialogues.length > 0) {
             updateDialogue();
-        } else {
-            return;
         }
     }
 
@@ -128,11 +127,6 @@ class DialogueManager
             showCharacter(line.character, line.expression, characterPositions.get(line.character.toLowerCase()));
             currentLine++;
         }
-        else
-        {
-            nameFlxText.text = "";
-            dialogueFlxText.text = "";
-        }
     }
 
     public static function setPlayerName(name:String):Void
@@ -165,7 +159,7 @@ class DialogueManager
             currentText = targetText;
             dialogueFlxText.text = currentText;
         }
-        else
+        else if (!isDialogueComplete())
         {
             updateDialogue();
         }

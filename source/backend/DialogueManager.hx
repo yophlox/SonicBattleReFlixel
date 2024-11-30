@@ -6,6 +6,8 @@ import flixel.util.FlxColor;
 import flixel.FlxSprite;
 import hscript.Parser;
 import hscript.Interp;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 using StringTools;
 
 typedef DialogueLine = {
@@ -31,7 +33,7 @@ class DialogueManager
     private var parser:Parser;
     private var interp:Interp;
     private var lastExpression:String = "";
-    private var rightSideSpeakers:Array<String> = ["mc", "player"];  // Change this to characters that should be on the right
+    private var rightSideSpeakers:Array<String> = ["mc", "player"];
 
     public function new(dialogueFile:String)
     {
@@ -112,7 +114,7 @@ class DialogueManager
             var line = dialogues[currentLine];
             nameFlxText.text = switch (line.character) {
                 case "sonic": "Sonic";
-                default: line.character; // Use the character name as-is if not recognized
+                default: line.character;
             }
             targetText = line.text;
             currentText = "";
@@ -181,19 +183,19 @@ class DialogueManager
             sprite.visible = true;
             
             var expressionPath = 'assets/images/dialogue/chars/${charAbbr}/${expression}.png';
-            if (openfl.Assets.exists(expressionPath))
-            {
-                sprite.loadGraphic(expressionPath);
-            }
-            else
-            {
-                var neutralPath = 'assets/images/dialogue/chars/${charAbbr}/neutral.png';
-                sprite.loadGraphic(neutralPath);
-            }
-        }
-        else
-        {
-            return;
+            var neutralPath = 'assets/images/dialogue/chars/${charAbbr}/neutral.png';
+            var newPath = openfl.Assets.exists(expressionPath) ? expressionPath : neutralPath;
+            
+            var originalScale = sprite.scale.x;
+            FlxTween.tween(sprite.scale, {x: 0}, 0.3, {
+                ease: FlxEase.quartIn,
+                onComplete: function(_) {
+                    sprite.loadGraphic(newPath);
+                    FlxTween.tween(sprite.scale, {x: originalScale}, 0.3, {
+                        ease: FlxEase.quartOut
+                    });
+                }
+            });
         }
     }
 

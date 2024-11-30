@@ -20,6 +20,7 @@ class PlayState extends FlxState
     public static var instance:PlayState;
     var dialoguebox:FlxSprite;
     var sonicSpr:FlxSprite;
+    var tailsSpr:FlxSprite;
     private var talkIndicator:FlxSprite;
     private var boxDefaultY:Float;
 
@@ -46,7 +47,14 @@ class PlayState extends FlxState
         sonicSpr.visible = false;
 		add(sonicSpr);
 
+        tailsSpr = new FlxSprite(100, 435).loadGraphic(Paths.image('dialogue/chars/Sonic/SonicNeut'));
+		tailsSpr.scale.set(2, 2);
+		//sonicSpr.screenCenter(Y);
+        tailsSpr.visible = false;
+		add(tailsSpr);
+
         dialogueManager.addCharacter("sonic", sonicSpr);
+        dialogueManager.addCharacter("tails", tailsSpr);
 
         dialoguebox = new FlxSprite(125).loadGraphic(Paths.image('dialogue/dialogueBox'));
         dialoguebox.scrollFactor.set(0, 0.18);
@@ -112,6 +120,10 @@ class PlayState extends FlxState
     private function updateIndicatorPosition(isRight:Bool):Void {
         var targetX = isRight ? FlxG.width - talkIndicator.width - 165 : 165;
         var targetY = dialoguebox.y + -25;
+        if (isRight == true)
+            talkIndicator.flipX = false;
+        else
+            talkIndicator.flipX = true;
         FlxTween.tween(talkIndicator, {x: targetX, y: targetY}, 0.3, {ease: FlxEase.quartOut});
     }
 

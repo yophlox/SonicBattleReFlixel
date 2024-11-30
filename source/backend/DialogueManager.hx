@@ -58,6 +58,7 @@ class DialogueManager
     {
         interp.variables.set("showDialogue", showDialogue);
         interp.variables.set("setCharacterExpression", setCharacterExpression);
+        interp.variables.set("setCharacterPosition", setCharacterPosition);
         interp.variables.set("playerName", playerName);
     }
 
@@ -105,7 +106,7 @@ class DialogueManager
     private function setCharacterExpression(character:String, expression:String, ?onRight:Bool = false):Void
     {
         lastExpression = expression;
-        showCharacter(character, expression, onRight);
+        showCharacter(character, expression);
         
         if (dialogues.length > 0) {
             dialogues[dialogues.length - 1].onRight = onRight;
@@ -119,6 +120,7 @@ class DialogueManager
             var line = dialogues[currentLine];
             nameFlxText.text = switch (line.character) {
                 case "sonic": "Sonic";
+                case "tails": "Tails";
                 default: line.character;
             }
             targetText = line.text;
@@ -170,7 +172,7 @@ class DialogueManager
         }
     }
 
-    private function showCharacter(character:String, expression:String, ?onRight:Bool = false):Void
+    private function showCharacter(character:String, expression:String, ?onRight:Bool = null):Void
     {
         for (char in characters.keys())
         {
@@ -179,6 +181,7 @@ class DialogueManager
 
         var charAbbr = switch (character.toLowerCase()) {
             case "sonic": "sonic";
+            case "tails": "tails";
             default: character.toLowerCase();
         }
 
@@ -187,8 +190,10 @@ class DialogueManager
             var sprite = characters[charAbbr];
             sprite.visible = true;
             
-            sprite.flipX = onRight;
-            sprite.x = onRight ? FlxG.width - sprite.width - 100 : 100;
+            if (onRight != null) {
+                sprite.flipX = onRight;
+                sprite.x = onRight ? FlxG.width - sprite.width - 100 : 100;
+            }
             
             var expressionPath = 'assets/images/dialogue/chars/${charAbbr}/${expression}.png';
             var neutralPath = 'assets/images/dialogue/chars/${charAbbr}/neutral.png';
@@ -204,6 +209,17 @@ class DialogueManager
                     });
                 }
             });
+        }
+    }
+
+    private function setCharacterPosition(character:String, position:String):Void
+    {
+        var onRight = position.toLowerCase() == "right";
+        if (characters.exists(character))
+        {
+            var sprite = characters[character];
+            sprite.flipX = onRight;
+            sprite.x = onRight ? FlxG.width - sprite.width - 100 : 100;
         }
     }
 

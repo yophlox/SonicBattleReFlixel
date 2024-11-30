@@ -13,7 +13,8 @@ using StringTools;
 typedef DialogueLine = {
     character:String,
     text:String,
-    expression:String
+    expression:String,
+    ?onRight:Bool
 }
 
 class DialogueManager
@@ -33,7 +34,6 @@ class DialogueManager
     private var parser:Parser;
     private var interp:Interp;
     private var lastExpression:String = "";
-    private var rightSideSpeakers:Array<String> = ["mc", "player"];
 
     public function new(dialogueFile:String)
     {
@@ -87,7 +87,7 @@ class DialogueManager
         }
     }
 
-    private function showDialogue(character:String, text:String):Void
+    private function showDialogue(character:String, text:String, ?onRight:Bool = false):Void
     {
         nameFlxText.text = character;
         targetText = text;
@@ -97,14 +97,19 @@ class DialogueManager
         dialogues.push({
             character: character,
             text: text,
-            expression: lastExpression
+            expression: lastExpression,
+            onRight: onRight
         });
     }
 
-    private function setCharacterExpression(character:String, expression:String):Void
+    private function setCharacterExpression(character:String, expression:String, ?onRight:Bool = false):Void
     {
         lastExpression = expression;
-        showCharacter(character, expression);
+        showCharacter(character, expression, onRight);
+        
+        if (dialogues.length > 0) {
+            dialogues[dialogues.length - 1].onRight = onRight;
+        }
     }
 
     private function updateDialogue():Void
@@ -119,7 +124,7 @@ class DialogueManager
             targetText = line.text;
             currentText = "";
             textTimer = 0;
-            showCharacter(line.character, line.expression);
+            showCharacter(line.character, line.expression, line.onRight);
             currentLine++;
         }
         else
@@ -165,7 +170,7 @@ class DialogueManager
         }
     }
 
-    private function showCharacter(character:String, expression:String):Void
+    private function showCharacter(character:String, expression:String, ?onRight:Bool = false):Void
     {
         for (char in characters.keys())
         {
@@ -181,6 +186,9 @@ class DialogueManager
         {
             var sprite = characters[charAbbr];
             sprite.visible = true;
+            
+            sprite.flipX = onRight;
+            sprite.x = onRight ? FlxG.width - sprite.width - 100 : 100;
             
             var expressionPath = 'assets/images/dialogue/chars/${charAbbr}/${expression}.png';
             var neutralPath = 'assets/images/dialogue/chars/${charAbbr}/neutral.png';
@@ -233,7 +241,6 @@ class DialogueManager
     
     public function getCurrentSpeakerPosition():Bool {
         if (currentLine <= 0 || currentLine > dialogues.length) return false;
-        var currentSpeaker = dialogues[currentLine - 1].character.toLowerCase();
-        return rightSideSpeakers.contains(currentSpeaker);
+        return dialogues[currentLine - 1].onRight == true;
     }
 }

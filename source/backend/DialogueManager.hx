@@ -187,7 +187,7 @@ class DialogueManager
             
             var storedPosition = characterPositions.get(charAbbr);
             if (storedPosition != null) {
-                sprite.x = storedPosition ? FlxG.width - sprite.width - 300 : 100;
+                sprite.x = storedPosition ? FlxG.width - sprite.width - 500 : 100;
                 sprite.flipX = storedPosition;
             }
             

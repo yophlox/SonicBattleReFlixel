@@ -125,7 +125,7 @@ class DialogueManager
             targetText = line.text;
             currentText = "";
             textTimer = 0;
-            showCharacter(line.character, line.expression, line.onRight);
+            showCharacter(line.character, line.expression, characterPositions.get(line.character.toLowerCase()));
             currentLine++;
         }
         else
@@ -255,7 +255,10 @@ class DialogueManager
     
     public function getCurrentSpeakerPosition():Bool {
         if (currentLine <= 0 || dialogues.length == 0) return false;
-        var currentCharacter = dialogues[currentLine - 1].character;
-        return characterPositions.exists(currentCharacter) ? characterPositions.get(currentCharacter) : false;
+        
+        // Get the current dialogue line (subtract 1 since currentLine is incremented after showing dialogue)
+        var currentDialogue = dialogues[currentLine - 1];
+        // Use the stored position for this character
+        return characterPositions.get(currentDialogue.character.toLowerCase());
     }
 }

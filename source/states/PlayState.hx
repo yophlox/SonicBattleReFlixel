@@ -117,8 +117,9 @@ class PlayState extends FlxState
         });
     }
 
-    private function updateIndicatorPosition(isRight:Bool):Void {
-        var targetX = isRight ? FlxG.width - talkIndicator.width - 165 : 165;
+    private function updateIndicatorPosition(isRight:Bool):Void
+    {
+        var targetX = isRight ? FlxG.width - talkIndicator.width - 465 : 165;
         var targetY = dialoguebox.y + -25;
         if (isRight == true)
             talkIndicator.flipX = false;

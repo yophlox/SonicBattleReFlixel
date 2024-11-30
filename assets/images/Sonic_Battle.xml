@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Sonic_Battle.png">
+	<!-- Created using the Spritesheet and XML generator -->
+	<!-- https://uncertainprod.github.io/FNF-Spritesheet-XML-generator-Web -->
+	<SubTexture name="idle0000" x="161" y="76" width="26" height="36" frameX="2" frameY="2" frameWidth="22" frameHeight="32"/>
+	<SubTexture name="idle0001" x="161" y="38" width="26" height="38" frameX="2" frameY="2" frameWidth="22" frameHeight="34"/>
+	<SubTexture name="idle0002" x="80" y="73" width="28" height="39" frameX="2" frameY="2" frameWidth="24" frameHeight="35"/>
+	<SubTexture name="idle0003" x="133" y="0" width="28" height="39" frameX="2" frameY="2" frameWidth="24" frameHeight="35"/>
+	<SubTexture name="idle0004" x="0" y="117" width="30" height="36" frameX="2" frameY="2" frameWidth="26" frameHeight="32"/>
+	<SubTexture name="idle0005" x="30" y="117" width="28" height="35" frameX="2" frameY="1" frameWidth="24" frameHeight="32"/>
+	<SubTexture name="run0000" x="0" y="0" width="35" height="36" frameX="2" frameY="2" frameWidth="31" frameHeight="32"/>
+	<SubTexture name="run0001" x="99" y="0" width="34" height="36" frameX="2" frameY="2" frameWidth="30" frameHeight="32"/>
+	<SubTexture name="run0002" x="133" y="77" width="27" height="38" frameX="2" frameY="2" frameWidth="23" frameHeight="34"/>
+	<SubTexture name="run0003" x="67" y="0" width="32" height="39" frameX="2" frameY="2" frameWidth="28" frameHeight="35"/>
+	<SubTexture name="run0004" x="0" y="36" width="34" height="37" frameX="2" frameY="2" frameWidth="30" frameHeight="33"/>
+	<SubTexture name="run0005" x="99" y="36" width="32" height="37" frameX="2" frameY="2" frameWidth="28" frameHeight="33"/>
+	<SubTexture name="run0006" x="161" y="0" width="27" height="38" frameX="2" frameY="2" frameWidth="23" frameHeight="34"/>
+	<SubTexture name="run0007" x="35" y="0" width="32" height="39" frameX="2" frameY="2" frameWidth="28" frameHeight="35"/>
+	<SubTexture name="jump0000" x="26" y="73" width="26" height="44" frameX="2" frameY="2" frameWidth="22" frameHeight="40"/>
+	<SubTexture name="jump0001" x="0" y="73" width="26" height="44" frameX="2" frameY="2" frameWidth="22" frameHeight="40"/>
+	<SubTexture name="jump0002" x="52" y="73" width="28" height="40" frameX="2" frameY="2" frameWidth="24" frameHeight="37"/>
+	<SubTexture name="jump0003" x="133" y="39" width="27" height="38" frameX="2" frameY="-1" frameWidth="23" frameHeight="37"/>
+	<SubTexture name="jump0004" x="161" y="112" width="26" height="35" frameX="2" frameY="2" frameWidth="22" frameHeight="31"/>
+</TextureAtlas>

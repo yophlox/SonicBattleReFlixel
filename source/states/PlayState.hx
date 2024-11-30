@@ -41,13 +41,13 @@ class PlayState extends FlxState
         #end
 		*/
 
-		sonicSpr = new FlxSprite(100, 435).loadGraphic(Paths.image('dialogue/chars/Sonic/SonicNeut'));
+		sonicSpr = new FlxSprite(100, 435).loadGraphic(Paths.image('dialogue/chars/sonic/neutral'));
 		sonicSpr.scale.set(2, 2);
 		//sonicSpr.screenCenter(Y);
         sonicSpr.visible = false;
 		add(sonicSpr);
 
-        tailsSpr = new FlxSprite(100, 435).loadGraphic(Paths.image('dialogue/chars/Sonic/SonicNeut'));
+        tailsSpr = new FlxSprite(300, 435).loadGraphic(Paths.image('dialogue/chars/tails/neutral'));
 		tailsSpr.scale.set(2, 2);
 		//sonicSpr.screenCenter(Y);
         tailsSpr.visible = false;

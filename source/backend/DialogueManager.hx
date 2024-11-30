@@ -34,6 +34,7 @@ class DialogueManager
     private var parser:Parser;
     private var interp:Interp;
     private var lastExpression:String = "";
+    private var characterPositions:Map<String, Bool> = new Map<String, Bool>();
 
     public function new(dialogueFile:String)
     {
@@ -88,18 +89,20 @@ class DialogueManager
         }
     }
 
-    private function showDialogue(character:String, text:String, ?onRight:Bool = false):Void
+    private function showDialogue(character:String, text:String):Void
     {
         nameFlxText.text = character;
         targetText = text;
         currentText = "";
         textTimer = 0;
         
+        var position = characterPositions.exists(character) ? characterPositions.get(character) : false;
+        
         dialogues.push({
             character: character,
             text: text,
             expression: lastExpression,
-            onRight: onRight
+            onRight: position
         });
     }
 
@@ -107,10 +110,6 @@ class DialogueManager
     {
         lastExpression = expression;
         showCharacter(character, expression);
-        
-        if (dialogues.length > 0) {
-            dialogues[dialogues.length - 1].onRight = onRight;
-        }
     }
 
     private function updateDialogue():Void
@@ -179,20 +178,17 @@ class DialogueManager
             characters[char].visible = false;
         }
 
-        var charAbbr = switch (character.toLowerCase()) {
-            case "sonic": "sonic";
-            case "tails": "tails";
-            default: character.toLowerCase();
-        }
+        var charAbbr = character.toLowerCase();
 
         if (characters.exists(charAbbr))
         {
             var sprite = characters[charAbbr];
             sprite.visible = true;
             
-            if (onRight != null) {
-                sprite.flipX = onRight;
-                sprite.x = onRight ? FlxG.width - sprite.width - 100 : 100;
+            var storedPosition = characterPositions.get(charAbbr);
+            if (storedPosition != null) {
+                sprite.x = storedPosition ? FlxG.width - sprite.width - 300 : 100;
+                sprite.flipX = storedPosition;
             }
             
             var expressionPath = 'assets/images/dialogue/chars/${charAbbr}/${expression}.png';
@@ -215,11 +211,13 @@ class DialogueManager
     private function setCharacterPosition(character:String, position:String):Void
     {
         var onRight = position.toLowerCase() == "right";
+        characterPositions.set(character, onRight);
+        
         if (characters.exists(character))
         {
             var sprite = characters[character];
             sprite.flipX = onRight;
-            sprite.x = onRight ? FlxG.width - sprite.width - 100 : 100;
+            sprite.x = onRight ? FlxG.width - sprite.width - 300 : 100;
         }
     }
 
@@ -256,7 +254,8 @@ class DialogueManager
     }
     
     public function getCurrentSpeakerPosition():Bool {
-        if (currentLine <= 0 || currentLine > dialogues.length) return false;
-        return dialogues[currentLine - 1].onRight == true;
+        if (currentLine <= 0 || dialogues.length == 0) return false;
+        var currentCharacter = dialogues[currentLine - 1].character;
+        return characterPositions.exists(currentCharacter) ? characterPositions.get(currentCharacter) : false;
     }
 }

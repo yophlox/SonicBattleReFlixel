@@ -93,6 +93,10 @@ class PlayState extends FlxState
         sonicSpr.x = -100;
         FlxTween.tween(sonicSpr, {x: 100}, 0.6, {ease: FlxEase.quartOut});
         
+        tailsSpr.visible = true;
+        tailsSpr.x = FlxG.width + 100;
+        FlxTween.tween(tailsSpr, {x: FlxG.width - tailsSpr.width - 500}, 0.6, {ease: FlxEase.quartOut});
+        
         talkIndicator.visible = true;
         updateIndicatorPosition(dialogueManager.getCurrentSpeakerPosition());
     }
@@ -106,6 +110,13 @@ class PlayState extends FlxState
             ease: FlxEase.quartIn,
             onComplete: function(_) {
                 sonicSpr.visible = false;
+            }
+        });
+
+        FlxTween.tween(tailsSpr, {x: FlxG.width + 100}, 0.5, {
+            ease: FlxEase.quartIn,
+            onComplete: function(_) {
+                tailsSpr.visible = false;
             }
         });
 

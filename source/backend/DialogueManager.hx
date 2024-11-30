@@ -173,11 +173,6 @@ class DialogueManager
 
     private function showCharacter(character:String, expression:String, ?onRight:Bool = null):Void
     {
-        for (char in characters.keys())
-        {
-            characters[char].visible = false;
-        }
-
         var charAbbr = character.toLowerCase();
 
         if (characters.exists(charAbbr))
@@ -256,9 +251,7 @@ class DialogueManager
     public function getCurrentSpeakerPosition():Bool {
         if (currentLine <= 0 || dialogues.length == 0) return false;
         
-        // Get the current dialogue line (subtract 1 since currentLine is incremented after showing dialogue)
         var currentDialogue = dialogues[currentLine - 1];
-        // Use the stored position for this character
         return characterPositions.get(currentDialogue.character.toLowerCase());
     }
 }

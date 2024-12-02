@@ -50,6 +50,9 @@ class BattleState extends FlxState {
 
 		last_mouse_x = FlxG.mouse.screenX;
 		last_mouse_y = FlxG.mouse.screenY;
+
+		if (FlxG.keys.justPressed.SEVEN)
+			FlxG.switchState(new states.PlayState());
 	}
 
 }

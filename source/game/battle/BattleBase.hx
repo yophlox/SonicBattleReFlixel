@@ -14,11 +14,15 @@ class BattleBase extends BillboardSprite
     public var characterAtlas:String;
     public var isPlayer:Bool;
     private var turning:Bool = false;
+    private var isJumping:Bool = false;
+    private var canDoubleJump:Bool = false;
+    private var gravity:Float = 400;
     var char:String;
 
     public function new(x:Float = 0, y:Float = 0)
     {
         super(x, y);
+        acceleration.y = gravity;
     }
 
     public function loadCharacterAnimations()
@@ -57,6 +61,17 @@ class BattleBase extends BillboardSprite
         {
             // npc stuff here lol
         }    
+
+        if (isJumping && velocity.y == 0)
+        {
+            isJumping = false;
+            canDoubleJump = false;
+        }
+        else if (isJumping && char == "Sonic" && !canDoubleJump)
+        {
+            canDoubleJump = true;
+        }
+
         super.update(elapsed);
     }
 
@@ -76,6 +91,23 @@ class BattleBase extends BillboardSprite
             }
             animation.play('run');
         });
+    }
+
+    private function jump()
+    {
+        if (!isJumping)
+        {
+            isJumping = true;
+            velocity.y = -75;
+            animation.play('jump');
+        }
+        else if (char == "Sonic" && canDoubleJump)
+        {
+            canDoubleJump = false;
+            velocity.y = -15;
+            velocity.x += flipX ? -100 : 100; 
+            animation.play('double');
+        }
     }
 
     private function movement()
@@ -115,7 +147,12 @@ class BattleBase extends BillboardSprite
             isMoving = true;
         }
 
-        if (!turning) {
+        if (FlxG.keys.justPressed.Z)
+        {
+            jump();
+        }
+
+        if (!turning && !isJumping) {
             animation.play(isMoving ? 'run' : 'idle');
         }
     }

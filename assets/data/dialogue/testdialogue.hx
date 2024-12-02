@@ -1,19 +1,25 @@
 setCharacterExpression("sonic", "neutral", false);
 setCharacterPosition("sonic", "left");
-showDialogue("Sonic", "I hate this empty void.");
+showDialogue("Sonic", "Man, I'm so bored.");
 
-setCharacterExpression("sonic", "shrug", false);
+//setCharacterExpression("sonic", "shrug", false);
+setCharacterExpression("sonic", "neutral", false);
 setCharacterPosition("sonic", "left");
-showDialogue("Sonic", "This reminds me of that one time Infinite sent \nme to Null Space.");
+showDialogue("Sonic", "Yo Tails!");
 
 setCharacterExpression("tails", "neutral", true);
 setCharacterPosition("tails", "right");
-showDialogue("Tails", "Hey Soni-");
+showDialogue("Tails", "Hey Sonic!");
 
-setCharacterExpression("sonic", "determined", false);
+//setCharacterExpression("sonic", "determined", false);
+setCharacterExpression("sonic", "neutral", false);
 setCharacterPosition("sonic", "left");
-showDialogue("Sonic", "SHUT THE HECK UP TAILS!");
+showDialogue("Sonic", "How are ya bud?");
 
-setCharacterExpression("tails", "screwed", true);
+setCharacterExpression("tails", "neutral", true);
 setCharacterPosition("tails", "right");
-showDialogue("Tails", "...");
+showDialogue("Tails", "I'm doing good! Guess who paid us a visit?");
+
+setCharacterExpression("sonic", "neutral", false);
+setCharacterPosition("sonic", "left");
+showDialogue("Sonic", "Who?");

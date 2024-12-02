@@ -1,0 +1,19 @@
+# Overworld TODOS
+
+NPC System 
+
+Place? System (like the og game)
+
+Party System
+
+Diff textbox for narrating (might make a func for hscript shit like uhh):
+
+```haxe
+setTextBox('default'); // (which would set the textbox asset to assets/images/dialogue/textboxes/default.png)
+// set to default by default
+// types: default & narrator
+```
+
+Grab the actual overworld assets
+
+Fighting game system!

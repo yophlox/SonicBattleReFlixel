@@ -20,7 +20,6 @@ typedef DialogueLine = {
 class DialogueManager
 {
     private var dialogueFlxText:FlxText;
-    private var nameFlxText:FlxText;
     private var dialogues:Array<DialogueLine>;
     private var currentLine:Int;
     private var characters:Map<String, FlxSprite>;
@@ -43,11 +42,7 @@ class DialogueManager
         currentLine = 0;
 
         dialogueFlxText = new FlxText(150, FlxG.height - 150, FlxG.width - 450, "");
-        dialogueFlxText.setFormat("assets/fonts/Sonic Battle In-game Font.ttf", 18, FlxColor.WHITE, LEFT, OUTLINE, FlxColor.BLACK);
-
-        nameFlxText = new FlxText(230, FlxG.height - 190, 200, "");
-        nameFlxText.setFormat("assets/fonts/Sonic Battle In-game Font.ttf", 28, FlxColor.WHITE, LEFT, OUTLINE, FlxColor.BLACK);
-        nameFlxText.visible = false;
+        dialogueFlxText.setFormat("assets/fonts/Sonic Battle In-game Font.ttf", 18, FlxColor.BLACK, LEFT, null);
 
         characters = new Map<String, FlxSprite>();
         parser = new Parser();
@@ -90,7 +85,6 @@ class DialogueManager
 
     private function showDialogue(character:String, text:String):Void
     {
-        nameFlxText.text = character;
         targetText = text;
         currentText = "";
         textTimer = 0;
@@ -116,11 +110,6 @@ class DialogueManager
         if (currentLine < dialogues.length)
         {
             var line = dialogues[currentLine];
-            nameFlxText.text = switch (line.character) {
-                case "sonic": "Sonic";
-                case "tails": "Tails";
-                default: line.character;
-            }
             targetText = line.text;
             currentText = "";
             textTimer = 0;
@@ -226,11 +215,6 @@ class DialogueManager
         return dialogueFlxText;
     }
 
-    public function getNameFlxText():FlxText
-    {
-        return nameFlxText;
-    }
-
     public function setTextSpeed(speed:Float):Void
     {
         textSpeedMultiplier = speed;
@@ -239,7 +223,6 @@ class DialogueManager
     public function destroy()
     {
         dialogueFlxText.destroy();
-        nameFlxText.destroy();
     }
     
     public function getCurrentSpeakerPosition():Bool {

@@ -82,7 +82,6 @@ class PlayState extends FlxState
 
     private function showDialogue():Void {
         add(dialogueManager.getDialogueFlxText());
-        add(dialogueManager.getNameFlxText());
         dialogueManager.start();
         
         dialoguebox.visible = true;
@@ -103,7 +102,6 @@ class PlayState extends FlxState
 
     private function hideDialogue():Void {
         remove(dialogueManager.getDialogueFlxText());
-        remove(dialogueManager.getNameFlxText());
         talkIndicator.visible = false;
         
         FlxTween.tween(sonicSpr, {x: -100}, 0.5, {

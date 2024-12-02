@@ -3,6 +3,10 @@
 A Sonic Battle fangame powered by HaxeFlixel.
 
 
-# thing so i dont forget tomorrow
+# haxelib stuff needed (besides tjhe default flixel stuff)
 
-https://github.com/01010111/flixel-depth
+haxelib git flixel-depth https://github.com/01010111/flixel-depth.git
+haxelib install zerolib
+haxelib install polymod 1.3.1
+haxelib install hscript
+haxelib install hxcpp-debug-server

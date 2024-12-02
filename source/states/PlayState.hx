@@ -146,11 +146,7 @@ class PlayState extends FlxState
     override public function update(elapsed:Float)
     {
         if (FlxG.keys.justPressed.SEVEN)
-            if (Modding.trackedMods != [])
-                FlxG.switchState(new ModsMenuState());
-            else {
-                Main.toast.create('No Mods Installed!', 0xFFFFFF00, 'Please add mods to be able to access the menu!');
-            }
+            FlxG.switchState(new depth.states.DepthState());
 
 		if (talking && FlxG.keys.justPressed.Z)
         {

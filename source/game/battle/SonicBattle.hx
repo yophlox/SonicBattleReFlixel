@@ -6,7 +6,8 @@ class SonicBattle extends BattleBase
     {
         super(x, y);
         isPlayer = true;
-        scale.set(0.3,0.3);
+        char = 'Sonic';
+        speed = 6;
         characterAtlas = 'Sonic_Battle';
         loadCharacterAnimations();
     }

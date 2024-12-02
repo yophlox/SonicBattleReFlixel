@@ -42,8 +42,11 @@ class BattleState extends FlxState {
 			last_mouse_y = FlxG.mouse.screenY;
 		}
 
-		depth_camera.set_delta(0.025);
-		depth_camera.set_delta(FlxG.mouse.pressed ? (last_mouse_x - FlxG.mouse.screenX) / 8 : 0, FlxG.mouse.pressed ? (FlxG.mouse.screenY - last_mouse_y) / 16 : 0);
+		if (FlxG.mouse.pressed) {
+			depth_camera.set_delta((last_mouse_x - FlxG.mouse.screenX) / 8, (FlxG.mouse.screenY - last_mouse_y) / 16);
+		} else {
+			depth_camera.set_delta(0, 0);
+		}
 
 		last_mouse_x = FlxG.mouse.screenX;
 		last_mouse_y = FlxG.mouse.screenY;

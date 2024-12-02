@@ -6,12 +6,15 @@ import states.PlayState;
 import openfl.geom.Rectangle;
 import openfl.display.BitmapData;
 import zero.flixel.depth.BillboardSprite;
+import flixel.util.FlxTimer;
 
 class BattleBase extends BillboardSprite
 {
-    public var speed:Float = 10;
+    public var speed:Float = 3;
     public var characterAtlas:String;
     public var isPlayer:Bool;
+    private var turning:Bool = false;
+    var char:String;
 
     public function new(x:Float = 0, y:Float = 0)
     {
@@ -36,9 +39,10 @@ class BattleBase extends BillboardSprite
             animation.addByPrefix('secondATK', 'secondATK', 12, true);
             animation.addByPrefix('thirdATK', 'thirdATK', 12, true);
             animation.addByPrefix('ATKFinale', 'ATKFinale', 12, true);
+            animation.addByPrefix('double', 'double', 12, true);
 
             animation.play('idle');
-            scale.set(2, 2);
+            scale.set(0.65, 0.65);
             updateHitbox();
         }
     }
@@ -56,24 +60,48 @@ class BattleBase extends BillboardSprite
         super.update(elapsed);
     }
 
+    private function turn(direction:String)
+    {
+        turning = true;
+        animation.play('turn');
+        var timer:FlxTimer = new FlxTimer();
+        timer.start(0.2, function(timer:FlxTimer) {
+            turning = false;
+            if (direction == "left") {
+                x -= speed;
+                flipX = true;
+            } else if (direction == "right") {
+                x += speed;
+                flipX = false;
+            }
+            animation.play('run');
+        });
+    }
+
     private function movement()
     {
-        if (PlayState.instance.talking)
+        if (PlayState.instance.talking || turning)
             return;
-            
+
         var isMoving:Bool = false;
 
         if (FlxG.keys.pressed.LEFT)
         {
-            x -= speed;
-            flipX = true;
-            isMoving = true;
+            if (!flipX) {
+                turn("left");
+            } else {
+                x -= speed;
+                isMoving = true;
+            }
         }
         else if (FlxG.keys.pressed.RIGHT)
         {
-            x += speed;
-            flipX = false;
-            isMoving = true;
+            if (flipX) {
+                turn("right");
+            } else {
+                x += speed;
+                isMoving = true;
+            }
         }
 
         if (FlxG.keys.pressed.UP)
@@ -87,6 +115,8 @@ class BattleBase extends BillboardSprite
             isMoving = true;
         }
 
-        animation.play(isMoving ? 'run' : 'idle');
+        if (!turning) {
+            animation.play(isMoving ? 'run' : 'idle');
+        }
     }
 }

@@ -7,6 +7,7 @@ import flixel.util.FlxSpriteUtil;
 import flixel.util.FlxTimer;
 import zero.flixel.depth.DepthGroup;
 import zero.flixel.depth.DepthCamera;
+import game.battle.SonicBattle;
 
 class DepthState extends FlxState {
 

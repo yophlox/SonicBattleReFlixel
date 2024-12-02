@@ -1,4 +1,4 @@
-package game.overworld;
+package game.battle;
 
 import flixel.FlxSprite;
 import flixel.FlxG;
@@ -7,11 +7,11 @@ import openfl.geom.Rectangle;
 import openfl.display.BitmapData;
 import zero.flixel.depth.BillboardSprite;
 
-class OverworldBase extends FlxSprite
+class BattleBase extends BillboardSprite
 {
     public var speed:Float = 10;
     public var characterAtlas:String;
-    var isLeader:Bool = false;
+    public var isPlayer:Bool;
 
     public function new(x:Float = 0, y:Float = 0)
     {
@@ -22,11 +22,21 @@ class OverworldBase extends FlxSprite
     {
         if (characterAtlas != null)
         {
-            frames = Paths.getSparrowAtlas('overworld/chars/' + characterAtlas);
+            frames = Paths.getSparrowAtlas('battle/chars/' + characterAtlas);
             animation.addByPrefix('idle', 'idle', 12, true);
             animation.addByPrefix('run', 'run', 12, true);
             animation.addByPrefix('jump', 'jump', 12, true);
-            
+            animation.addByPrefix('turn', 'turn', 12, true);
+            animation.addByPrefix('turnrun', 'turnrun', 12, true);
+            animation.addByPrefix('stop', 'stop', 12, true);
+            animation.addByPrefix('fall', 'fall', 12, true);
+            animation.addByPrefix('guard', 'guard', 12, true);
+            animation.addByPrefix('heal', 'heal', 12, true);
+            animation.addByPrefix('firstATK', 'firstATK', 12, true);
+            animation.addByPrefix('secondATK', 'secondATK', 12, true);
+            animation.addByPrefix('thirdATK', 'thirdATK', 12, true);
+            animation.addByPrefix('ATKFinale', 'ATKFinale', 12, true);
+
             animation.play('idle');
             scale.set(2, 2);
             updateHitbox();
@@ -35,14 +45,14 @@ class OverworldBase extends FlxSprite
 
     override function update(elapsed:Float)
     {
-        if (!isLeader)
-        {
-            // party member func here lol
-        }
-        else if (isLeader)
+        if (isPlayer)
         {
             movement();
         }
+        else
+        {
+            // npc stuff here lol
+        }    
         super.update(elapsed);
     }
 

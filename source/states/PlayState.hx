@@ -146,7 +146,7 @@ class PlayState extends FlxState
     override public function update(elapsed:Float)
     {
         if (FlxG.keys.justPressed.SEVEN)
-            FlxG.switchState(new depth.states.DepthState());
+            FlxG.switchState(new states.BattleState());
 
 		if (talking && FlxG.keys.justPressed.Z)
         {

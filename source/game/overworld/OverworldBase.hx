@@ -5,7 +5,6 @@ import flixel.FlxG;
 import states.PlayState;
 import openfl.geom.Rectangle;
 import openfl.display.BitmapData;
-import zero.flixel.depth.BillboardSprite;
 
 class OverworldBase extends FlxSprite
 {

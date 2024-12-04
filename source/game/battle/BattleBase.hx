@@ -5,10 +5,9 @@ import flixel.FlxG;
 import states.PlayState;
 import openfl.geom.Rectangle;
 import openfl.display.BitmapData;
-import zero.flixel.depth.BillboardSprite;
 import flixel.util.FlxTimer;
 
-class BattleBase extends BillboardSprite
+class BattleBase extends FlxSprite
 {
     public var speed:Float = 3;
     public var characterAtlas:String;
